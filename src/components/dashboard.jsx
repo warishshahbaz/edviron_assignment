@@ -22,6 +22,8 @@ const Dashboard = ({ onLogout }) => {
   const [tempData, setTempData] = useState([]);
   const [darkMode, setDarkMode] = useState(false); // Dark mode state
 
+  const BASE = `https://edviron-backend-phi.vercel.app`;
+
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage] = useState(10); // Set the number of rows per page
@@ -49,13 +51,17 @@ const Dashboard = ({ onLogout }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/transactions", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Send token in Authorization header
-          },
-        });
-        const schoolres = await axios.get("/api/transactions/school", {
+        const response = await axios.get(
+          `${BASE}/api/transactions`,
+
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Send token in Authorization header
+            },
+          }
+        );
+        const schoolres = await axios.get(`${BASE}/api/transactions/school`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`, // Send token in Authorization header
@@ -142,7 +148,7 @@ const Dashboard = ({ onLogout }) => {
 
   const handleClick = async () => {
     try {
-      const response = await axios.get("/api/transactions/import", {
+      const response = await axios.get(`${BASE}/api/transactions/import`, {
         headers: {
           "Content-Type": "application/json",
         },
