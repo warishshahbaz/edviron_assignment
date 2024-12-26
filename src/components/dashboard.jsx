@@ -199,7 +199,7 @@ const Dashboard = ({ onLogout }) => {
           </Button>
           <IconButton onClick={toggleDarkMode}>
             {darkMode ? (
-              <MdLightMode onClick={handleThemeToggle} />
+              <MdLightMode color="white" onClick={handleThemeToggle} />
             ) : (
               <MdDarkMode onClick={handleThemeToggle} />
             )}
