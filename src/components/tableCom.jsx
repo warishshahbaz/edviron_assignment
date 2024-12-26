@@ -1,4 +1,4 @@
-import { CircularProgress, IconButton, Pagination } from "@mui/material";
+import { Card, CircularProgress, IconButton, Pagination } from "@mui/material";
 import React from "react";
 import { MdContentCopy } from "react-icons/md";
 
@@ -14,15 +14,17 @@ const TableComp = ({
 }) => {
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-[300px]">
+      <Card className="flex justify-center items-center h-[300px]">
         <CircularProgress color="inherit" />
-      </div>
+      </Card>
     );
   }
 
   if (currentRows?.length === 0) {
     return (
-      <div className="flex justify-center items-center h-[300px]">No Data</div>
+      <Card className="flex justify-center items-center h-[300px]">
+        No Data
+      </Card>
     );
   }
 
