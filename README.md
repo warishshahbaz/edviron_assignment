@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+# School Payments Dashboard and Backend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to Run the Project
 
-## Available Scripts
+### Clone the Repository:
 
-In the project directory, you can run:
+```bash
+git clone <repository-url>
+```
 
-### `npm start`
+### Navigate to the Project Directory:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+cd school-payments-dashboard
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Install Dependencies:
 
-### `npm test`
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Start the Development Server:
 
-### `npm run build`
+```bash
+npm run dev # For Vite
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# OR
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+npm start # For Create React App
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Open the Application:
 
-### `npm run eject`
+Open the application in your browser at `http://localhost:3000`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## API Details
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Endpoints Overview
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### 1. `/transactions` (GET)
 
-## Learn More
+- **Purpose**: Fetches all transactions.
+- **Parameters**: None.
+- **Response**:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```json
+[
+  {
+    "collect_id": "12345",
+    "school_id": "001",
+    "gateway": "PayPal",
+    "order_amount": 500.0,
+    "transaction_amount": 500.0,
+    "status": "Success",
+    "custom_order_id": "ABC123"
+  }
+]
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 2. `/transactions/school` (POST)
 
-### Code Splitting
+- **Purpose**: Maps `school_id` to `school_name` and retrieves transactions for the given `school_name`.
+- **Parameters**:
+  - `school_id` (String): The ID of the school.
+  - `school_name` (String): The name of the school.
+- **Payload Example**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```json
+{
+  "school_id": "123",
+  "school_name": "ABC School"
+}
+```
 
-### Analyzing the Bundle Size
+- **Response**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```json
+[
+  {
+    "collect_id": "12345",
+    "school_id": "123",
+    "school_name": "ABC School",
+    "transaction_amount": 300.0,
+    "status": "Pending"
+  }
+]
+```
 
-### Making a Progressive Web App
+#### 3. `/check-status` (GET)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- **Purpose**: Fetches the status of a transaction based on `custom_order_id`.
+- **Parameters**:
+  - `custom_order_id` (String): The unique identifier of the transaction.
+- **Query Example**:
 
-### Advanced Configuration
+```
+/check-status?custom_order_id=ABC123
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Response**:
 
-### Deployment
+```json
+{
+  "custom_order_id": "ABC123",
+  "status": "Success"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Frontend**: React.js
+- **Styling**: Tailwind CSS
+- **Libraries**:
+  - Axios
+  - React Router
+  - Chart.js (Optional for visualization)
+- **Backend**: Node.js (NestJS framework) with MongoDB integration
+
+---
+
+## Future Enhancements
+
+- Add more granular filtering options (e.g., by gateway or order amount).
+- Implement role-based authentication and authorization.
+- Optimize API calls with caching mechanisms.
+- Add export functionality for transaction data (e.g., CSV, Excel).
+- Enhance UI with animations and transitions.
+
+---
+
+## Contribution Guidelines
+
+1. Fork the repository and create a new branch for your feature or bug fix.
+2. Commit changes with clear messages.
+3. Submit a pull request for review.
