@@ -10,7 +10,7 @@ const TableComp = ({
   paginate,
   handleCopy,
   currentPage,
-  isDarkMode, // Dark mode state
+  isDarkMode,
 }) => {
   if (loading) {
     return (
@@ -67,7 +67,7 @@ const TableComp = ({
                     ? "hover:bg-gray-700"
                     : "hover:bg-gray-50"
                   : "hover:bg-white"
-              } hover:scale-105 hover:shadow-md transition-transform duration-300 ease-in-out`}
+              } hover:scale-100 hover:shadow-md transition-transform duration-300 ease-in-out`}
             >
               <td className="px-4 py-2 border capitalize">{row.school_name}</td>
               <td className="px-4 py-2 border flex items-center">

@@ -162,7 +162,7 @@ const Dashboard = ({ onLogout }) => {
 
   const handleCopy = (collectId) => {
     navigator.clipboard.writeText(collectId);
-    alert(`Copied: ${collectId}`);
+    toast(`Copied: ${collectId}`);
   };
 
   // Extract unique school names dynamically
